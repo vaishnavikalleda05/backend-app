@@ -1,3 +1,4 @@
+
 import mongoose from "mongoose";
 const productSchema = mongoose.Schema({
   name: { type: String, required: true },
@@ -16,3 +17,4 @@ export default productModel;
 //   { id: 2, name: "Product 2", price: 150 },
 //   { id: 3, name: "Product 3", price: 120 },
 // ];
+
