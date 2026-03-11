@@ -7,7 +7,8 @@ import mongoose from "mongoose";
 import dbConnect from "./config/db.js";
 import productRouter from "./routes/productRoute.js";
 import { userRouter } from "./routes/userRoute.js";
-import { storeRouter } from "./routes/storeRoute.js";  
+
+import storeRouter from "./routes/storeRoute.js";
 const app = express();
 dotenv.config()
 app.use(expressLayouts);
