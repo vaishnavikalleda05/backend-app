@@ -1,10 +1,21 @@
 import productModel from "../models/productModel.js";
 
-const getProducts=async(req,res)=>{
-    const products=await productModel.find()
-    res.json("products/index",{products});
+// const getProducts=async(req,res)=>{
+//     const products=await productModel.find()
+//     res.json("products/index",{products});
 
-}
+// }
+
+const getProducts = async (req, res) => {
+  const products = await productModel.find();
+
+  if (req.headers.accept && req.headers.accept.includes("application/json")) {
+    return res.json(products);
+  }
+
+  res.render("products/index", { products });
+};
+
 const addProduct=async(req,res)=>{
     const product=req.body;
     await productModel.create(product);
