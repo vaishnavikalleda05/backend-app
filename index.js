@@ -6,9 +6,9 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import dbConnect from "./config/db.js";
 import productRouter from "./routes/productRoute.js";
-import { userRouter } from "./routes/userRoute.js";
-
+import {userRouter} from "./routes/userRoute.js";
 import storeRouter from "./routes/storeRoute.js";
+
 const app = express();
 dotenv.config()
 app.use(expressLayouts);
@@ -16,6 +16,7 @@ app.set("view engine", "ejs");
 app.set("views", "views");
 app.set("layout","layout")
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json())
 app.use(express.static("public"));
 
 app.use(
