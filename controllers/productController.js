@@ -7,13 +7,19 @@ import productModel from "../models/productModel.js";
 // }
 
 const getProducts = async (req, res) => {
-  const products = await productModel.find();
+  try {
+    const products = await productModel.find();
 
-  if (req.headers.accept && req.headers.accept.includes("application/json")) {
-    return res.json(products);
+    if (req.headers.accept && req.headers.accept.includes("application/json")) {
+      return res.json(products);   // stop here
+    }
+
+    return res.render("products/index", { products });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server Error");
   }
-
-  res.render("products/index", { products });
 };
 
 const addProduct=async(req,res)=>{
