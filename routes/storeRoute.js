@@ -4,4 +4,4 @@ const storeRouter = express.Router()
 
 storeRouter.get("/",showProducts)
 
-export default storeRouter;
+export default storeRouter

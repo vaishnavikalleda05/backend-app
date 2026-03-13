@@ -1,50 +1,45 @@
-
-// import userModel from "../models/userModel.js";
-
-// const getUsers=async(req,res)=>{
-//     const users=await userModel.find()
-//     res.render("users/index",{users});
-
-// }
 import userModel from "../models/userModel.js";
-
-// Get all users
-const getUsers = async (req, res) => {
-    const users = await userModel.find();
-    res.render("users/index", { users });
+import bcrypt from "bcrypt";
+const getusers = async (req, res) => {
+  const users = await userModel.find();
+  res.render("users/index", { users });
 };
 
-// Show add user form
-const addUserForm = async (req, res) => {
-    res.render("users/add");
+const adduser = async (req, res) => {
+  const body = req.body;
+  const hashedPassword = await bcrypt.hash(body.password, 10);
+  body.password = hashedPassword;
+  await userModel.create(body);
+  res.redirect("/users");
 };
 
-// Add user
-const addUser = async (req, res) => {
-    const user = req.body;
-    await userModel.create(user);
-    res.redirect("/users");
+const adduserForm = async (req, res) => {
+  res.render("users/add");
 };
 
-// Delete user
-const deleteUser = async (req, res) => {
-    const id = req.params.id;
-    await userModel.findByIdAndDelete(id);
-    res.redirect("/users");
+const deleteuser = async (req, res) => {
+  const id = req.params.id;
+  await userModel.findByIdAndDelete(id);
+  res.redirect("/users");
 };
 
-// Show edit user form
-const editUserForm = async (req, res) => {
-    const id = req.params.id;
-    const user = await userModel.findOne({ _id: id });
-    res.render("users/edit", { user });
+const edituserForm = async (req, res) => {
+  const id = req.params.id;
+  const user = await userModel.findOne({ _id: id });
+  res.render("users/edit", { user });
 };
 
-// Save edited user
-const saveUser = async (req, res) => {
-    const id = req.params.id;
-    await userModel.findByIdAndUpdate(id, req.body);
-    res.redirect("/users");
+const saveuser = async (req, res) => {
+  const id = req.params.id;
+  await userModel.findByIdAndUpdate(id, req.body);
+  res.redirect("/users")
 };
 
-export {getUsers,addUserForm,addUser,deleteUser,editUserForm,saveUser};
+export {
+  getusers,
+  adduser,
+  adduserForm,
+  deleteuser,
+  edituserForm,
+  saveuser
+};
